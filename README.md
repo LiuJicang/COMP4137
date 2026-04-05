@@ -102,6 +102,12 @@ Main demo:
 python -m src.main
 ```
 
+Phase I demo only (account + signed SISO transactions + verifiable Merkle tree):
+
+```bash
+python -m src.phase1_demo
+```
+
 Run tests:
 
 ```bash
@@ -119,6 +125,14 @@ PowerShell helper:
 - Phase I: `crypto`, `transaction`, `merkle`, plus related tests
 - Phase II: `block`, `blockchain`, `pow`, `validator`, `tamper_demo`, plus related tests
 - Final submission: README polishing, report assets in `docs/report_assets/`, video script in `docs/video_script.md`
+
+### Phase I completion checklist
+
+- Generate at least two accounts with key pairs and addresses
+- Generate signed SISO transactions and verify signatures successfully
+- Compute transaction IDs via hash of transaction payloads
+- Build Merkle root from transaction IDs
+- Generate and verify inclusion proofs for transactions
 
 ## 9. Reproducibility Checklist
 
