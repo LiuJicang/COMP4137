@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 
 from src.crypto.hash_utils import hash_text
@@ -32,6 +32,15 @@ def public_key_from_pem(public_pem: str):
 
 def private_key_from_pem(private_pem: str):
     return serialization.load_pem_private_key(private_pem.encode("utf-8"), password=None)
+
+
+def public_pem_from_private_pem(private_pem: str) -> str:
+    private_key = private_key_from_pem(private_pem)
+    public_key = private_key.public_key()
+    return public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo,
+    ).decode("utf-8")
 
 
 def address_from_public_key(public_pem: str) -> str:

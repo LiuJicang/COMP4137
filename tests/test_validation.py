@@ -9,3 +9,10 @@ def test_chain_valid_then_invalid_after_tamper():
     before, after = simulate_tamper_and_validate(chain)
     assert before is True
     assert after is False
+
+
+def test_chain_invalid_after_signature_tamper():
+    chain = build_demo_chain()
+    chain.chain[1].transactions[0]["signature_hex"] = "00"
+
+    assert not is_chain_valid(chain)

@@ -30,13 +30,20 @@ class Blockchain:
         return self.chain[-1]
 
     def add_block(self, transactions: list[Transaction]) -> Block:
-        tx_ids = [tx.compute_tx_id() for tx in transactions]
-        tx_payloads = [tx.payload() | {"tx_id": tx.compute_tx_id()} for tx in transactions]
+        tx_records: list[dict] = []
+        tx_ids: list[str] = []
+        for tx in transactions:
+            if not tx.verify():
+                raise ValueError("Cannot add unsigned or invalid transaction to a block")
+            tx_record = tx.to_record()
+            tx_records.append(tx_record)
+            tx_ids.append(tx_record["tx_id"])
+
         block = Block(
             index=len(self.chain),
             previous_hash=self.last_block.block_hash,
             merkle_root=build_merkle_root(tx_ids),
-            transactions=tx_payloads,
+            transactions=tx_records,
             difficulty=self.difficulty,
         )
         block.mine()

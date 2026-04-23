@@ -1,28 +1,33 @@
 # Video Script (5 minutes)
 
-## Segment 1 (0:00 - 0:40): Team and project goal
+## Segment 1 (0:00 - 0:35): Team and goal
 
-- Introduce team members and ownership.
-- Explain the objective: implement a mini blockchain with verifiable integrity.
+- Introduce the team and state each member's main contribution.
+- State the goal: build a mini blockchain with signed transactions, Merkle verification, PoW mining, and tamper detection.
 
-## Segment 2 (0:40 - 2:00): Core architecture
+## Segment 2 (0:35 - 1:30): Phase I demo
 
-- Accounts and signed transactions
-- Merkle tree and root generation
-- Block structure and hash linkage
+- Run `python -m src.phase1_demo`.
+- Show generated accounts and explain address derivation.
+- Show signed SISO transactions with transaction IDs.
+- Show the Merkle root and inclusion proof verification results.
 
-## Segment 3 (2:00 - 3:20): PoW mining demo
+## Segment 3 (1:30 - 3:00): Phase II demo
 
-- Show difficulty target and nonce search.
-- Demonstrate successful block mining.
+- Run `python -m src.main`.
+- Explain the genesis block and the two mined non-genesis blocks.
+- Point out the previous hash linkage, nonce, block hash, and Merkle root shown in the console.
+- Mention that transaction signatures are stored in block records and re-verified during validation.
 
-## Segment 4 (3:20 - 4:30): Integrity verification and tampering
+## Segment 4 (3:00 - 4:15): Integrity verification and tamper attack
 
-- Run chain validation before tampering.
-- Modify one early block transaction.
-- Re-run validation and show invalid result.
+- Show that the chain is valid before tampering.
+- Explain that one transaction amount in an existing block is modified manually by the tamper demo.
+- Re-run validation and show that the chain becomes invalid.
+- State why it fails: the modified transaction no longer matches its signature and the recomputed Merkle root no longer matches the block record.
 
-## Segment 5 (4:30 - 5:00): Summary
+## Segment 5 (4:15 - 5:00): Reproducibility and conclusion
 
-- Mention lessons learned.
-- Mention reproducibility artifacts (README, tests, scripts).
+- Show `python -m pytest -q`.
+- Mention the README setup steps and the reproducibility helper script.
+- Close with one sentence on what the project demonstrates about blockchain integrity.
